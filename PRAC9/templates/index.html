@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractional Knapsack</title>
+</head>
+<body>
+    <h1>Fractional Knapsack Problem</h1>
+    <form method="POST">
+        <label for="capacity">Capacity of Knapsack:</label>
+        <input type="number" id="capacity" name="capacity" required><br><br>
+
+        <label for="num_items">Number of Items:</label>
+        <input type="number" id="num_items" name="num_items" min="1" required><br><br>
+
+        <div id="itemInputs">
+            <h3>Enter Item Details:</h3>
+            <div class="item">
+                <label>Profit:</label>
+                <input type="number" name="profit_1" required>
+                <label>Weight:</label>
+                <input type="number" name="weight_1" required><br><br>
+            </div>
+        </div>
+
+        <button type="button" onclick="addItem()">Add Another Item</button><br><br>
+        <input type="submit" value="Calculate Maximum Profit">
+    </form>
+
+    <script>
+        let itemCount = 1;
+
+        function addItem() {
+            itemCount++;
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.innerHTML = `
+                <label>Profit:</label>
+                <input type="number" name="profit_${itemCount}" required>
+                <label>Weight:</label>
+                <input type="number" name="weight_${itemCount}" required><br><br>`;
+            document.getElementById('itemInputs').appendChild(div);
+        }
+    </script>
+</body>
+</html>

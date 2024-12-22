@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Huffman Coding</title>
+    <script>
+        async function encodeText() {
+            const text = document.getElementById("encodeInput").value;
+            const response = await fetch("/encode", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text }),
+            });
+            const data = await response.json();
+            document.getElementById("encodedOutput").innerText = "Encoded Text: " + data.encoded;
+        }
+
+        async function decodeText() {
+            const text = document.getElementById("decodeInput").value;
+            const response = await fetch("/decode", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ text }),
+            });
+            const data = await response.json();
+            document.getElementById("decodedOutput").innerText = "Decoded Text: " + data.decoded;
+        }
+    </script>
+</head>
+<body>
+    <h1>Huffman Coding</h1>
+
+    <h2>Encode Text</h2>
+    <input type="text" id="encodeInput" placeholder="Enter text to encode" />
+    <button onclick="encodeText()">Encode</button>
+    <p id="encodedOutput"></p>
+
+    <h2>Decode Text</h2>
+    <input type="text" id="decodeInput" placeholder="Enter binary to decode" />
+    <button onclick="decodeText()">Decode</button>
+    <p id="decodedOutput"></p>
+
+    <h2>Huffman Codes</h2>
+    <ul>
+        {% for char, code in codes.items() %}
+            <li>{{ char }}: {{ code }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

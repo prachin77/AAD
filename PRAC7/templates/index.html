@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knapsack Problem Solver</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-50 font-sans antialiased">
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg
+mt-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Knapsack
+            Problem Solver</h2>
+        <form action="/knapsack" method="POST">
+            <!-- Max Weight Input -->
+            <div class="mb-4">
+                <label for="max_weight" class="block text-lg font-medium
+text-gray-700">Max Weight</label>
+                <input type="number" id="max_weight" name="max_weight"
+                    class="mt-2 p-2 w-full border border-gray-300 rounded-md" required>
+            </div>
+            <!-- Items Section -->
+            <div id="items" class="space-y-4">
+                <div class="item-input flex space-x-4">
+                    <div class="w-1/2">
+                        <label for="weight_1" class="block text-lg
+font-medium text-gray-700">Weight of Item 1</label>
+                        <input type="number" id="weight_1" name="weight_1"
+                            class="mt-2 p-2 w-full border border-gray-300 rounded-md" required>
+                    </div>
+                    <div class="w-1/2">
+                        <label for="value_1" class="block text-lg
+font-medium text-gray-700">Value of Item 1</label>
+                        <input type="number" id="value_1" name="value_1"
+                            class="mt-2 p-2 w-full border border-gray-300 rounded-md" required>
+                    </div>
+                </div>
+            </div>
+            <!-- Add More Items Button -->
+            <button type="button" id="add-item" class="mt-4 bg-blue-500
+text-white px-4 py-2 rounded-md hover:bg-blue-600">Add More Items</button>
+            <!-- Submit Button -->
+            <button type="submit" class="mt-4 bg-green-500 text-white px-6
+py-2 rounded-md hover:bg-green-600">Solve</button>
+        </form>
+        {% if error %}
+        <div class="mt-4 p-3 bg-red-100 text-red-800 rounded-md">
+            <strong>Error:</strong> {{ error }}
+        </div>
+        {% endif %}
+    </div>
+    <script>
+        let itemCount = 1;
+        document.getElementById('add-item').addEventListener('click', () => {
+            itemCount++;
+            const itemInputs = `
+<div class="item-input flex space-x-4 mt-4">
+<div class="w-1/2">
+<label for="weight_${itemCount}" class="block
+text-lg font-medium text-gray-700">Weight of Item ${itemCount}</label>
+<input type="number" id="weight_${itemCount}"
+name="weight_${itemCount}" class="mt-2 p-2 w-full border border-gray-300
+rounded-md" required>
+</div>
+<div class="w-1/2">
+<label for="value_${itemCount}" class="block
+text-lg font-medium text-gray-700">Value of Item ${itemCount}</label>
+<input type="number" id="value_${itemCount}"
+name="value_${itemCount}" class="mt-2 p-2 w-full border border-gray-300
+rounded-md" required>
+</div>
+</div>
+`;
+            document.getElementById('items').insertAdjacentHTML('beforeend',
+                itemInputs);
+        });
+    </script>
+</body>
+
+</html>

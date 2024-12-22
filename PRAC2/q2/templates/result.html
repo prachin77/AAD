@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Results</title>
+</head>
+<body>
+    <h1>Results for {{ method }}</h1>
+    <ul>
+        {% for month, pairs in results %}
+            <li>For month {{ month }} pairs produced = {{ pairs }}</li>
+        {% endfor %}
+    </ul>
+    <p>Total no. of pairs: {{ total_pairs }}</p>
+    
+    <!-- Display the plot -->
+    <h2>Graph of Pairs Produced</h2>
+    <img src="data:image/png;base64,{{ img_data }}" alt="Pairs Produced Graph">
+    
+    <a href="/">Go back</a>
+</body>
+</html>

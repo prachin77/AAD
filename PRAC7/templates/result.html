@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Knapsack Problem Result</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 font-sans antialiased">
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg
+mt-10">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Knapsack
+            Problem Results</h2>
+        <!-- Max Value -->
+        <h4 class="text-xl font-semibold text-gray-800 mb-4">Max Value: {{
+            max_value }}</h4>
+        <!-- Value Matrix Table -->
+        <div class="mb-6">
+            <h5 class="text-lg font-semibold text-gray-700 mb-3">Value
+                Matrix:</h5>
+            <table class="table-auto w-full border-collapse border
+border-gray-300">
+                <thead>
+                    <tr>
+                        <th class="px-4 py-2 border border-gray-300
+bg-gray-200">Weight</th>
+                        {% for col in range(value_matrix[0]|length) %}
+                        <th class="px-4 py-2 border border-gray-300
+bg-gray-200">{{ col }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in value_matrix %}
+                    <tr>
+                        <td class="px-4 py-2 border border-gray-300
+text-center">{{ loop.index0 }}</td>
+                        {% for col in row %}
+                        <td class="px-4 py-2 border border-gray-300
+text-center">{{ col }}</td>
+                        {% endfor %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Items Selected -->
+        <div class="mb-6">
+            <h5 class="text-lg font-semibold text-gray-700 mb-3">Items
+                Selected:</h5>
+            <ul class="list-disc pl-5">
+                {% for item in items_chosen %}
+                <li class="text-lg text-gray-800">Item {{ item.item }} -
+                    Weight: {{ item.weight }} | Value: {{ item.value }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <!-- Solve Another Button -->
+        <a href="/" class="mt-4 inline-block bg-blue-500 text-white px-6
+py-2 rounded-md hover:bg-blue-600">Solve Another</a>
+    </div>
+</body>
+
+</html>

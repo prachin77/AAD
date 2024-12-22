@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shortest Path Result</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans text-gray-900">
+    <div class="max-w-5xl mx-auto p-6">
+        <h1 class="text-3xl font-semibold text-center mb-6">Shortest Path
+            Result</h1>
+        <h2 class="text-2xl font-semibold mb-4">Node Matrix</h2>
+        <table class="w-full table-auto bg-white border border-gray-300
+rounded-lg shadow-md mb-6">
+            <thead class="bg-blue-100">
+                <tr>
+                    <th class="px-4 py-2 text-left">Node</th>
+                    {% for node in graph.keys() %}
+                    <th class="px-4 py-2 text-left">{{ node }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for node, edges in node_matrix.items() %}
+                <tr>
+                    <td class="px-4 py-2">{{ node }}</td>
+                    {% for target in graph.keys() %}
+                    <td class="px-4 py-2 text-center">{{ edges[target]
+                        }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="text-2xl font-semibold mb-4">Final Dijkstra Matrix
+            (from {{ start }})</h2>
+        <table class="w-full table-auto bg-white border border-gray-300
+rounded-lg shadow-md mb-6">
+            <thead class="bg-blue-100">
+                <tr>
+                    <th class="px-4 py-2 text-left">Node</th>
+                    {% for node in graph.keys() %}
+                    <th class="px-4 py-2 text-left">{{ node }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for node, distances in dijkstra_matrix.items() %}
+                <tr>
+                    <td class="px-4 py-2">{{ node }}</td>
+                    {% for target in graph.keys() %}
+                    <td class="px-4 py-2 text-center">{{ distances[target]
+                        if distances[target] != '∞' else '∞' }}</td>
+                    {% endfor %}
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="text-2xl font-semibold mb-4">Destination Table
+            (Shortest Path from {{ start }} to {{ destination }})</h2>
+        <table class="w-full table-auto bg-white border border-gray-300
+rounded-lg shadow-md mb-6">
+            <thead class="bg-blue-100">
+                <tr>
+                    <th class="px-4 py-2 text-left">Node</th>
+                    <th class="px-4 py-2 text-left">Distance from {{ start
+                        }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in destination_table %}
+                <tr>
+                    <td class="px-4 py-2">{{ entry.node }}</td>
+                    <td class="px-4 py-2 text-center">{{ entry.distance
+                        }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="text-2xl font-semibold mb-4">Shortest Path from {{
+            start }} to {{ destination }}</h2>
+        {% if path %}
+        <p class="bg-green-100 text-green-700 p-4 rounded-lg">{{ path
+            | join("-> ") }}</p>
+        {% else %}
+        <p class="bg-red-100 text-red-700 p-4 rounded-lg">No path
+            found.</p>
+        {% endif %}
+        <br><br>
+        <a href="{{ url_for('index') }}" class="inline-block bg-blue-600
+text-white px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">Back to Graph
+            Creation</a>
+    </div>
+</body>
+
+</html>

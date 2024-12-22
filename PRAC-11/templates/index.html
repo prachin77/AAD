@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Graph</title>
+    <link href="https://cdn.tailwindcss.com" rel="stylesheet">
+</head>
+
+<body class="bg-gray-100 font-sans text-gray-900">
+    <div class="max-w-4xl mx-auto p-6">
+        <h1 class="text-3xl font-semibold text-center mb-6">Create
+            Graph</h1>
+        <form method="POST" class="bg-white p-6 rounded-lg shadow-md
+ mb-6">
+            <div class="space-y-4">
+                <div>
+                    <label for="newNode" class="block text-lg
+ font-medium">New Node:</label>
+                    <input type="text" id="newNode" name="newNode" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2
+ focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="newEdgeTo" class="block text-lg
+ font-medium">Edge To (Destination Node):</label>
+                    <input type="text" id="newEdgeTo" name="newEdgeTo" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2
+ focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="edgeWeight" class="block text-lg
+ font-medium">Edge Weight:</label>
+                    <input type="number" id="edgeWeight" name="edgeWeight" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2
+ focus:ring-blue-500" required>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-blue-600 text-white
+ px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">Add Edge</button>
+                </div>
+            </div>
+        </form>
+        <h2 class="text-2xl font-semibold mb-4">Current Graph</h2>
+        <table class="w-full table-auto bg-white border border-gray-300
+ rounded-lg shadow-md">
+            <thead class="bg-blue-100">
+                <tr>
+                    <th class="px-4 py-2 text-left">Node</th>
+                    <th class="px-4 py-2 text-left">Edges</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for node, edges in graph.items() %}
+                <tr>
+                    <td class="px-4 py-2">{{ node }}</td>
+                    <td class="px-4 py-2">
+                        <ul>
+                            {% for neighbor, weight in edges.items() %}
+                            <li>{{ neighbor }} (Weight: {{ weight }})</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2 class="text-2xl font-semibold mt-8 mb-4">Find Shortest
+            Path</h2>
+        <form action="{{ url_for('result') }}" method="POST" class="bg-white p-6 rounded-lg shadow-md">
+            <div class="space-y-4">
+                <div>
+                    <label for="startNode" class="block text-lg
+ font-medium">Start Node:</label>
+                    <input type="text" id="startNode" name="startNode" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2
+ focus:ring-blue-500" required>
+                </div>
+                <div>
+                    <label for="destinationNode" class="block text-lg
+ font-medium">Destination Node:</label>
+                    <input type="text" id="destinationNode" name="destinationNode" class="w-full p-3 border border-gray-300 rounded-lg
+ focus:ring-2 focus:ring-blue-500" required>
+                </div>
+                <div class="flex justify-center">
+                    <button type="submit" class="bg-blue-600 text-white
+ px-6 py-2 rounded-lg shadow-md hover:bg-blue-700">Find Shortest
+                        Path</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

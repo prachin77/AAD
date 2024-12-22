@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sorting Algorithm Performance</title>
+</head>
+<body>
+    <h1>Sorting Algorithm Performance</h1>
+    <form method="POST">
+        <label for="sizes">Enter list sizes (comma-separated):</label>
+        <input type="text" id="sizes" name="sizes" value="100,200,300,400,500">
+        <button type="submit">Generate Plot</button>
+    </form>
+
+    {% if plot_url %}
+        <h2>Performance Plot:</h2>
+        <img src="data:image/png;base64,{{ plot_url }}" alt="Performance Plot">
+    {% endif %}
+</body>
+</html>

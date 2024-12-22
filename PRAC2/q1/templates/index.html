@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Income Calculation</title>
+</head>
+<body>
+    <h1>Income Calculation Methods</h1>
+    <form action="/" method="post">
+        <label for="method">Select Calculation Method:</label>
+        <select id="method" name="method">
+            <option value="loop">Loop</option>
+            <option value="equation">Equation</option>
+            <option value="recursion">Recursion</option>
+        </select><br><br>
+        
+        <label for="n">Number of Clients:</label>
+        <input type="number" id="n" name="n" min="1" required><br><br>
+        
+        <input type="submit" value="Calculate">
+    </form>
+
+    <h2>Calculated Results</h2>
+    <div id="result">
+        {% if result is not none %}
+            <p>Result: {{ result }}</p>
+            <p>Time Taken: {{ time_taken }} seconds</p>
+        {% endif %}
+    </div>  
+
+    <h2>Performance Plot</h2>
+    <button onclick="loadPlot()">Load Plot</button>
+    <div id="plot"></div>
+
+    <script>
+        function loadPlot() {
+            fetch('/plot')
+                .then(response => response.json())
+                .then(data => {
+                    const plotDiv = document.getElementById('plot');
+                    const img = document.createElement('img');
+                    img.src = 'data:image/png;base64,' + data.plot;
+                    plotDiv.innerHTML = '';
+                    plotDiv.appendChild(img);
+                });
+        }
+    </script>
+</body>
+</html>

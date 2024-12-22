@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LCS Calculator</title>
+</head>
+<body>
+    <h1>LCS Calculator</h1>
+    <form method="POST">
+        <label for="sequence1">Enter comma-separated values for String 1:</label>
+        <input type="text" id="sequence1" name="sequence1" required>
+        <br><br>
+        <label for="sequence2">Enter comma-separated values for String 2:</label>
+        <input type="text" id="sequence2" name="sequence2" required>
+        <br><br>
+        <button type="submit">Calculate LCS</button>
+    </form>
+
+
+    {% if lcs_sequence %}
+    <h2>Results</h2>
+    <p><strong>String 1:</strong> {{ s1 }}</p>
+    <p><strong>String 2:</strong> {{ s2 }}</p>
+    <p><strong>LCS Sequence:</strong> {{ lcs_sequence }}</p>
+
+
+    <h3>Matrix</h3>
+    <table border="1">
+        {% for row in matrix %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+
+
+    <h3>Arrow Matrix</h3>
+    <table border="1">
+        {% for row in arrow_matrix %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell if cell != 0 else '' }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+</body>
+</html>

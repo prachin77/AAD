@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minimum Coins Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 400px;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 1rem;
+        }
+        button {
+            cursor: pointer;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <h1>Minimum Coins Calculator</h1>
+    <div class="container">
+        <label for="amount">Enter the amount (Rs):</label>
+        <input type="number" id="amount" min="1" required>
+        <button onclick="calculateMinimumCoins()">Calculate</button>
+        <div id="output" class="result"></div>
+    </div>
+
+    <script>
+        async function calculateMinimumCoins() {
+            const amount = document.getElementById("amount").value;
+            const output = document.getElementById("output");
+            output.innerHTML = ""; // Clear previous result
+
+            if (!amount) {
+                output.innerHTML = "<p class='error'>Please enter an amount.</p>";
+                return;
+            }
+
+            try {
+                const response = await fetch(`/min_coins/${amount}`);
+                const data = await response.json();
+
+                if (response.ok) {
+                    output.innerHTML = `<p>Minimum coins required for Rs. ${amount}: <strong>${data.minimum_coins}</strong></p>`;
+                    output.innerHTML += `<p>Coins used: <strong>${data.coins_used.join(', ')}</strong></p>`;
+                } else {
+                    output.innerHTML = `<p class='error'>${data.error}</p>`;
+                }
+            } catch (error) {
+                output.innerHTML = "<p class='error'>An error occurred. Please try again later.</p>";
+            }
+        }
+    </script>
+</body>
+</html>

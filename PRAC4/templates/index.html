@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Search</title>
+    <style>
+        #plot-container {
+            display: none; /* Initially hide the plot container */
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee Search</h1>
+
+    <form action="/add_employee" method="post">
+        <h2>Add Employee</h2>
+        <label>ID:</label>
+        <input type="text" name="emp_id" required><br>
+        <label>Name:</label>
+        <input type="text" name="emp_name" required><br>
+        <label>Salary:</label>
+        <input type="text" name="emp_sal" required><br>
+        <button type="submit">Add Employee</button>
+    </form>
+
+    <form id="searchForm">
+        <h2>Search Employee</h2>
+        <label>ID:</label>
+        <input type="text" name="search_id" required><br>
+        <label>Search Type:</label>
+        <select name="search_type">
+            <option value="linear">Linear Search</option>
+            <option value="binary">Binary Search</option>
+        </select><br>
+        <button type="button" onclick="performSearch()">Search</button>
+    </form>
+
+    <div id="result"></div>
+    <div id="time"></div>
+
+    <h2>View Search Time Plot</h2>
+    <button onclick="generatePlot()">Generate and View Plot</button>
+
+    <div id="plot-container">
+        <h2>Search Time Plot</h2>
+        <img id="plot-img" src="" alt="Search Time Plot">
+        <br>
+        <button onclick="hidePlot()">Close Plot</button>
+    </div>
+
+    <script>
+        function performSearch() {
+            var form = document.getElementById('searchForm');
+            var formData = new FormData(form);
+            fetch('/search', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('result').innerText = data.result;
+                document.getElementById('time').innerText = 'Search Time: ' + data.time + ' seconds';
+            });
+        }
+
+        function generatePlot() {
+            fetch('/generate_plot')
+            .then(response => response.text())
+            .then(data => {
+                // Update the plot image source
+                document.getElementById('plot-img').src = '/static/plot.png';
+                document.getElementById('plot-container').style.display = 'block';
+            })
+            .catch(error => console.error('Error generating plot:', error));
+        }
+
+        function hidePlot() {
+            document.getElementById('plot-container').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
